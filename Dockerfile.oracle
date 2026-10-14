@@ -1,0 +1,11 @@
+FROM rust:latest AS builder
+WORKDIR /app
+COPY . .
+RUN cargo build --release --bin price-oracle
+
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=builder /app/target/release/oracle /app/app
+RUN mkdir -p /app/logs /app/config
+CMD ["/app/app"]

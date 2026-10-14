@@ -1,0 +1,17 @@
+[package]
+name = "auto-reporter"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+shared = { path = "../shared" }
+database = { path = "../database" }
+notifications = { path = "../notifications" }
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+chrono.workspace = true
+sqlx.workspace = true

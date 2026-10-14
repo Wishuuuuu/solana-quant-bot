@@ -1,0 +1,18 @@
+[Unit]
+Description=Solana Quant Bot - Smart Money Radar
+After=network.target redis.service postgresql.service
+
+[Service]
+Type=simple
+User=solana
+WorkingDirectory=/opt/solana-quant-bot/smart-money-radar
+ExecStart=/opt/solana-quant-bot/smart-money-radar/target/release/smart-money-radar
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=smart-money-radar
+Environment="RUST_LOG=info"
+
+[Install]
+WantedBy=multi-user.target

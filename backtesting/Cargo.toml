@@ -1,0 +1,19 @@
+[package]
+name = "backtesting"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+shared = { path = "../shared" }
+database = { path = "../database" }
+solana-sdk.workspace = true
+solana-client.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+chrono.workspace = true
+plotters = "0.3"
+statrs = "0.16"
