@@ -1,0 +1,31 @@
+﻿name: Build & Export Docker Images
+on:
+  workflow_dispatch:          # jalankan manual
+  push:
+    branches: [ main ]        # atau branch yang kamu pakai
+
+jobs:
+  build-and-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build all services
+        run: docker compose build --no-cache
+      - name: Export images to tar archives
+        run: |
+          mkdir -p artifacts
+          for svc in redis notifications postgres risk-manager smart-money-radar ai-sentiment-engine dashboard-api execution-engine health-checker orchestrator price-oracle; do
+            img="solana-quant-bot-\"
+            echo "Saving \ ..."
+            docker save "\" -o "artifacts/\.tar" || true
+          done
+          ls -lh artifacts/
+      - name: Upload Docker image artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-images
+          path: artifacts/
+          retention-days: 7
+          if-no-files-found: error
